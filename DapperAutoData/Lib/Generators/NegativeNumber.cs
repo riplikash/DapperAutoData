@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-namespace DapperAutoData.Generators;
+namespace DapperAutoData.Lib.Generators;
 
 public class NegativeNumber : IDataGenerator
 {
@@ -8,7 +8,7 @@ public class NegativeNumber : IDataGenerator
 
     public NegativeNumber(int value)
     {
-        this.Value = value;
+        Value = value;
     }
 
     public NegativeNumber()
@@ -17,7 +17,7 @@ public class NegativeNumber : IDataGenerator
 
     public static implicit operator NegativeNumber(int y) => new NegativeNumber(y);
     public static implicit operator int(NegativeNumber x) => x.Value;
-    public static implicit operator double(NegativeNumber x) => (double)x.Value;
+    public static implicit operator double(NegativeNumber x) => x.Value;
 
     public static NegativeNumber Generate(IFixture fixture) => fixture.Create<PositiveNumber>() * -1;
 
@@ -25,6 +25,6 @@ public class NegativeNumber : IDataGenerator
     {
         return Value.ToString();
     }
-    public void RegisterGenerators(IFixture fixture) => fixture.Register<NegativeNumber>(() => Generate(fixture));
+    public void RegisterGenerators(IFixture fixture) => fixture.Register(() => Generate(fixture));
 
 }

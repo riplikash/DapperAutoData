@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-namespace DapperAutoData.Generators.Time;
+namespace DapperAutoData.Lib.Generators.Time;
 
 public class PastDateTimeOffset : IDataGenerator
 {

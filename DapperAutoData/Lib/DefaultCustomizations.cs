@@ -1,5 +1,4 @@
 ﻿using AutoFixture;
-using DapperAutoData.Content;
 
 namespace DapperAutoData;
 

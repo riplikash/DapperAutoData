@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-namespace DapperAutoData.Content;
+namespace DapperAutoData;
 
 public static class DataGeneratorInstaller
 {

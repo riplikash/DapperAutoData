@@ -3,7 +3,7 @@ using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoFixture.Xunit2;
 
-namespace DapperAutoData.Content;
+namespace DapperAutoData;
 
 public class DapperAutoDataAttribute : InlineAutoDataAttribute
 {

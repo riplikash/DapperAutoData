@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using Faker;
 
-namespace DapperAutoData.Generators;
+namespace DapperAutoData.Lib.Generators;
 
 public class TestEmail : IDataGenerator
 {

@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-namespace DapperAutoData.Generators;
+namespace DapperAutoData.Lib.Generators;
 
 public class PositiveIdentifier : IDataGenerator
 {
@@ -8,7 +8,7 @@ public class PositiveIdentifier : IDataGenerator
 
     public PositiveIdentifier(int value)
     {
-        this.Value = value;
+        Value = value;
     }
 
     public PositiveIdentifier()
@@ -17,7 +17,7 @@ public class PositiveIdentifier : IDataGenerator
 
     public static implicit operator PositiveIdentifier(int y) => new PositiveIdentifier(y);
     public static implicit operator int(PositiveIdentifier x) => x.Value;
-    public static implicit operator double(PositiveIdentifier x) => (double)x.Value;
+    public static implicit operator double(PositiveIdentifier x) => x.Value;
     public static PositiveIdentifier Generate(IFixture fixture)
     {
         var number = fixture.Create<Generator<int>>();

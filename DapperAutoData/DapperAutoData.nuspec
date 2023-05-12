@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>DapperAutoData</id>
-		<version>1.0.0</version>
+		<version>1.0.4</version>
 		<title>DapperAutoData</title>
 		<authors>Blake Stephens, Kaelin Stephens</authors>
 		<owners>Blake Stephens</owners>
@@ -10,8 +10,28 @@
 		<description>A library for generating data in C# unit testing projects using Dapper and AutoMoq.</description>
 		<copyright>Copyright © Blake Stephens 2023. All rights reserved.</copyright>
 		<tags>csharp dapper automoq testing data-generation</tags>
+		<license type="expression">MIT</license>
+		<dependencies>
+			<group targetFramework="net6.0">
+				<!-- Add dependencies for net6.0 if needed -->
+			</group>
+			<group targetFramework="net7.0">
+				<!-- Add dependencies for net7.0 if needed -->
+			</group>
+		</dependencies>
 	</metadata>
 	<files>
+		<file src="bin\Release\net6.0\**" target="lib\net6.0" />
 		<file src="bin\Release\net7.0\**" target="lib\net7.0" />
+
+		<file src="Lib\Generators\**\*.cs" target="lib\net7.0\Generators" />
+		<file src="Lib\DefaultCustomizations.cs" target="lib\net7.0" />
+		<file src="Lib\IDataGenerator.cs" target="lib\net7.0" />
+		<file src="DapperAutoData.props" target="build" />
+		<file src="ContentFiles\AutoMoqDataAttribute.cs" target="contentFiles\cs\netstandard2.0" />
+		<file src="ContentFiles\DataGeneratorInstaller.cs" target="contentFiles\cs\netstandard2.0" />
+
 	</files>
+
+
 </package>

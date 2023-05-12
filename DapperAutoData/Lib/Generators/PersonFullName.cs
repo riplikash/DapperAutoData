@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-namespace DapperAutoData.Generators;
+namespace DapperAutoData.Lib.Generators;
 
 public class PersonFullName : IDataGenerator
 {
