@@ -13,19 +13,15 @@ This is a flexible, robust testing library that integrates a variety of powerful
 
 ## Installation
 
+In package manager console run the command: `Install-Package DapperAutoData` 
+
 The library is distributed as a nuget package. After installing the package, the files `DataGeneratorInstaller` and `AutoMoqDataAttribute.cs` will be created.
 
-shellCopy code
-
-`Install-Package DapperTestingLibrary` 
-
-The installer will attempt to install any data generators in the assembly. A data generator is a class that implements the `IDataGenerator` interface.
+The DataGeneratorInstaller  will attempt to install any data generators in the assembly. A data generator is a class that implements the `IDataGenerator` interface.
 
 ## How to Use
 
 ### Creating a Data Generator
-
-csharpCopy code
 
 `public class AssistantGenerator : IDataGenerator
 {
@@ -48,8 +44,6 @@ Here are some examples of tests using the Dapper Testing Library:
 
 #### Example of a Unit Test
 
-csharpCopy code
-
 `[Theory]
 [DapperAutoData]
 public void Create_MinimumRequiredFields_NoValidationErrors(CreateAccountRequest request)
@@ -68,8 +62,6 @@ public void Create_MinimumRequiredFields_NoValidationErrors(CreateAccountRequest
 
 #### Example of a Theory Driven Test
 
-csharpCopy code
-
 `[Theory]
 [DapperAutoData("")]
 [DapperAutoData(" ")]
@@ -87,8 +79,6 @@ public void ChangeAddress_MissingCompany_ChangeSuccessful(string companyName, Ac
 }` 
 
 #### Example of a Test with Injected Services in an Async Class
-
-csharpCopy code
 
 `[Theory]
 [DapperAutoData]
@@ -119,10 +109,6 @@ public async Task CreateAsync_CreateDuplicateAccount_ReturnsDuplicateAccountErro
 -   [AutoMoq Documentation]([https://github.com/Moq/moq4/wiki/Quick](https://github.com/Moq/moq4/wiki/Quickstart)
 
 ## Testing for Exceptions
-
-While there isn't a specific example included here for testing exceptions, it's worth mentioning that Fluent Assertions has excellent support for assertions on raised exceptions. Here's a simple example:
-
-csharpCopy code
 
 `[Theory]
 [DapperAutoData]
@@ -159,6 +145,20 @@ This creates a new AutoDataAttribute that you can use in your tests to create ob
 ## Extending the Library
 
 The Dapper Testing Library is designed to be extensible. You can create your own data generators by implementing the `IDataGenerator` interface, and register them using the `RegisterGenerators` method. You can also customize the way that AutoFixture creates your objects, as shown in the example above.
+
+## Existing generator types
+
+The Dapper Testing Library has a variety of built in types that can be used to specify ranges and types of auto data. These can generally be used interchangably with the types they are generating for, or you can grab the specific value from the .Value attribute.
+
+* FutureDateTimeOffset (DateTimeOffset)
+* PastDateTimeOffset (DateTimeOffset)
+* CompanyName (string)
+* NegativeNumber (int, double)
+* PositiveNumber (int, double)
+* PersonFirstName (string)
+* PersonFullName (string)
+* PersonLastName (string)
+* TestEmail (string)
 
 ## Community
 
