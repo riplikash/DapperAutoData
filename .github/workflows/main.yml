@@ -1,0 +1,38 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Build the project (replace with your build command if needed)
+      - name: Build
+        run: dotnet build --configuration Release
+      
+      # Increment version in .nuspec file
+      - name: Increment Version
+        run: |
+          PACKAGE_VERSION=$(dotnet nuget list source | grep -oP "(?<=LocalPackageSource\W\[.*?\]\s).*")
+          NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
+          echo "New version: $NEW_VERSION"
+          echo "::set-output name=new_version::$NEW_VERSION"
+      
+      # Pack the project
+      - name: Pack
+        run: dotnet pack --configuration Release --output ./packages
+      
+      # Publish the package to NuGet
+      - name: Publish to NuGet
+        uses: nuget/nuget-push@v2
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+          nuget-version: ${{ steps.increment-version.outputs.new_version }}
+          package: './packages/*.nupkg'
