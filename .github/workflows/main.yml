@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - master 
+      - master
 
 jobs:
   build-and-deploy:
@@ -21,14 +21,12 @@ jobs:
       - name: Increment Version
         id: version
         run: |
-          PACKAGE_VERSION=$(dotnet list package DapperAutoData --format=short | awk '{print $2}')
+          PACKAGE_VERSION=$(dotnet list package --format=short | grep -oP "(?<=DapperAutoData\s).*")
           PACKAGE_VERSION=${PACKAGE_VERSION//[[:space:]]/}
           echo "Package version: $PACKAGE_VERSION"
           NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
           echo "New version: $NEW_VERSION"
           echo "::set-output name=new_version::$NEW_VERSION"
-
-
       
       # Pack the project
       - name: Pack
@@ -39,5 +37,6 @@ jobs:
         uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+      
       - name: Upload Package
         run: dotnet nuget push ./packages/*.nupkg --source "https://api.nuget.org/v3/index.json" --skip-duplicate --api-key "${{ secrets.NUGET_API_KEY }}"
