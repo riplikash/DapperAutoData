@@ -30,11 +30,16 @@ jobs:
       - name: Increment Version
         id: version
         run: |
-          PACKAGE_VERSION=$(dotnet list package --format json | jq -r '.packages[] | select(.id=="DapperAutoData") | .resolved')
-          echo "Package version: $PACKAGE_VERSION"
-          NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
-          echo "New version: $NEW_VERSION"
-          echo "::set-output name=new_version::$NEW_VERSION"
+          # Use PowerShell to parse and update the XML
+          $nuspec = [xml](Get-Content ./DapperAutoData/DapperAutoData.nuspec)
+          $currentVersion = [version]$nuspec.package.metadata.version
+          $newVersion = [version]::new($currentVersion.Major, $currentVersion.Minor, $currentVersion.Build + 1)
+          $nuspec.package.metadata.version = $newVersion.ToString()
+          $nuspec.Save("./DapperAutoData/DapperAutoData.nuspec")
+
+          # Output the new version
+          echo "::set-output name=new_version::$newVersion"
+        shell: pwsh
       
       # Pack the project
       - name: Pack
