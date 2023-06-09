@@ -38,7 +38,7 @@ jobs:
       
       # Pack the project
       - name: Pack
-        run: dotnet pack DapperAutoData/DapperAutoData.csproj --configuration Release /p:NuspecFile=DapperAutoData/DapperAutoData.nuspec
+        run: dotnet pack DapperAutoData/DapperAutoData.csproj --configuration Release /p:NuspecFile=DapperAutoData/DapperAutoData.nuspec --output ./packages
 
       - name: List directories
         run: | 
