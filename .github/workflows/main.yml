@@ -19,11 +19,15 @@ jobs:
       
       # Increment version in .nuspec file
       - name: Increment Version
+        id: version
         run: |
-          PACKAGE_VERSION=$(dotnet nuget list source | grep -oP "(?<=LocalPackageSource\W\[.*?\]\s).*")
-          NEW_VERSION=$(dotnet nuspec update YourPackageName.nuspec --version-suffix $PACKAGE_VERSION)
+          PACKAGE_VERSION=$(dotnet nuget list source --format=short | awk '{print $2}')
+          PACKAGE_VERSION=${PACKAGE_VERSION//[[:space:]]/}
+          echo "Package version: $PACKAGE_VERSION"
+          NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
           echo "New version: $NEW_VERSION"
           echo "::set-output name=new_version::$NEW_VERSION"
+
       
       # Pack the project
       - name: Pack
