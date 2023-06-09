@@ -17,8 +17,29 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
 
-      # Output the packages 
+      # Output the packages
       - name: Output Packages
         run: dotnet list package --format json
       
       # Increment version in .nuspec file
+      - name: Increment Version
+        id: version
+        run: |
+          PACKAGE_VERSION=$(dotnet list package --format json | jq -r '.packages[] | select(.id=="DapperAutoData") | .resolved')
+          echo "Package version: $PACKAGE_VERSION"
+          NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
+          echo "New version: $NEW_VERSION"
+          echo "::set-output name=new_version::$NEW_VERSION"
+      
+      # Pack the project
+      - name: Pack
+        run: dotnet pack --configuration Release --output ./packages
+      
+      # Publish the package to NuGet
+      - name: Publish to NuGet
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+      
+      - name: Upload Package
+        run: dotnet nuget push ./packages/*.nupkg --source "https://api.nuget.org/v3/index.json" --skip-duplicate --api-key "${{ secrets.NUGET_API_KEY }}"
