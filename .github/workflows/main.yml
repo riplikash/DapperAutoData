@@ -21,7 +21,7 @@ jobs:
       - name: Increment Version
         run: |
           PACKAGE_VERSION=$(dotnet nuget list source | grep -oP "(?<=LocalPackageSource\W\[.*?\]\s).*")
-          NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
+          NEW_VERSION=$(dotnet nuspec update YourPackageName.nuspec --version-suffix $PACKAGE_VERSION)
           echo "New version: $NEW_VERSION"
           echo "::set-output name=new_version::$NEW_VERSION"
       
@@ -31,8 +31,8 @@ jobs:
       
       # Publish the package to NuGet
       - name: Publish to NuGet
-        uses: nuget/nuget-push@v2
+        uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-          nuget-version: ${{ steps.increment-version.outputs.new_version }}
-          package: './packages/*.nupkg'
+      - name: Upload Package
+        run: dotnet nuget push ./packages/*.nupkg --source "https://api.nuget.org/v3/index.json" --skip-duplicate --api-key "${{ secrets.NUGET_API_KEY }}"
