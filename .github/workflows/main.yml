@@ -21,8 +21,8 @@ jobs:
       - name: Increment Version
         id: version
         run: |
-          PACKAGE_VERSION=$(dotnet list package --format=short | grep -oP "(?<=DapperAutoData\s).*")
-          PACKAGE_VERSION=${PACKAGE_VERSION//[[:space:]]/}
+          sudo apt-get install -y jq
+          PACKAGE_VERSION=$(dotnet list package --format json | jq -r '.packages[] | select(.id=="DapperAutoData") | .resolved')
           echo "Package version: $PACKAGE_VERSION"
           NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
           echo "New version: $NEW_VERSION"
