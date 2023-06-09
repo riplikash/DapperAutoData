@@ -28,6 +28,7 @@ jobs:
           echo "New version: $NEW_VERSION"
           echo "::set-output name=new_version::$NEW_VERSION"
 
+
       
       # Pack the project
       - name: Pack
