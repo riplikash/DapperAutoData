@@ -20,12 +20,7 @@ jobs:
       # Output the packages
       - name: Output Packages
         run: dotnet list package --format json
-        
-      - name: Print working directory and its contents
-        run: |
-          pwd
-          ls -Rla
-              
+
       # Increment version in .nuspec file
       - name: Increment Version
         id: version
@@ -46,7 +41,10 @@ jobs:
         run: dotnet pack DapperAutoData/DapperAutoData.csproj --configuration Release /p:NuspecFile=DapperAutoData/DapperAutoData.nuspec
 
       - name: List directories
-        run: ls -Rla
+        run: | 
+          cd DapperAutoData
+          ls -Rla
+          cd ..
       
       # Publish the package to NuGet
       - name: Publish to NuGet
