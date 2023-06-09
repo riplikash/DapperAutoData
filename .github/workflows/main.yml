@@ -44,6 +44,9 @@ jobs:
       # Pack the project
       - name: Pack
         run: dotnet pack --configuration Release --output ./packages
+
+      - name: List directories
+        run: ls -Rla
       
       # Publish the package to NuGet
       - name: Publish to NuGet
