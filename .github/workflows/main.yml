@@ -16,12 +16,15 @@ jobs:
       # Build the project (replace with your build command if needed)
       - name: Build
         run: dotnet build --configuration Release
+
+      # Output the packages
+      - name: Output Packages
+        run: dotnet list package --format json
       
       # Increment version in .nuspec file
       - name: Increment Version
         id: version
         run: |
-          sudo apt-get install -y jq
           PACKAGE_VERSION=$(dotnet list package --format json | jq -r '.packages[] | select(.id=="DapperAutoData") | .resolved')
           echo "Package version: $PACKAGE_VERSION"
           NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
