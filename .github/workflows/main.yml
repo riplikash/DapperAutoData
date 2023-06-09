@@ -20,6 +20,11 @@ jobs:
       # Output the packages
       - name: Output Packages
         run: dotnet list package --format json
+        
+      - name: Print working directory and its contents
+        run: |
+          pwd
+          ls -la
       
       # Increment version in .nuspec file
       - name: Increment Version
