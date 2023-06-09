@@ -25,19 +25,17 @@ jobs:
         run: |
           pwd
           ls -Rla
-          
-        
-      
+              
       # Increment version in .nuspec file
       - name: Increment Version
         id: version
         run: |
           # Use PowerShell to parse and update the XML
-          $nuspec = [xml](Get-Content ./DapperAutoData/DapperAutoData/DapperAutoData.nuspec)
+          $nuspec = [xml](Get-Content ./DapperAutoData/DapperAutoData.nuspec)
           $currentVersion = [version]$nuspec.package.metadata.version
           $newVersion = [version]::new($currentVersion.Major, $currentVersion.Minor, $currentVersion.Build + 1)
           $nuspec.package.metadata.version = $newVersion.ToString()
-          $nuspec.Save("./DapperAutoData/DapperAutoData/DapperAutoData.nuspec")
+          $nuspec.Save("./DapperAutoData/DapperAutoData.nuspec")
 
           # Output the new version
           echo "::set-output name=new_version::$newVersion"
