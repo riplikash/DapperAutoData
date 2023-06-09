@@ -21,7 +21,7 @@ jobs:
       - name: Increment Version
         id: version
         run: |
-          PACKAGE_VERSION=$(dotnet nuget list source --format=short | awk '{print $2}')
+          PACKAGE_VERSION=$(dotnet list package YourPackageName --format=short | awk '{print $2}')
           PACKAGE_VERSION=${PACKAGE_VERSION//[[:space:]]/}
           echo "Package version: $PACKAGE_VERSION"
           NEW_VERSION=$(dotnet nuspec update DapperAutoData.nuspec --version-suffix $PACKAGE_VERSION)
