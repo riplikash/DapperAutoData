@@ -24,7 +24,9 @@ jobs:
       - name: Print working directory and its contents
         run: |
           pwd
-          ls -la
+          ls -Rla
+          
+        
       
       # Increment version in .nuspec file
       - name: Increment Version
