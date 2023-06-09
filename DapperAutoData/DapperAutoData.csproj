@@ -43,6 +43,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="DapperAutoData.nuspec">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="LICENSE.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		  
