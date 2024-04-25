@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-namespace DapperAutoData.Lib.Generators;
+namespace DapperAutoData.Generators;
 
 public class BooleanGenerators : IDataGenerator
 {
