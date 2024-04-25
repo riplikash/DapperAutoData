@@ -31,10 +31,7 @@ jobs:
         shell: bash
       
       - name: List directories
-        run: | 
-          cd DapperAutoData
-          ls -Rla
-          cd ..
+        run: ls -Rla ./packages
       
       - name: Publish to NuGet
         uses: nuget/setup-nuget@v1
