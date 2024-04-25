@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+	  <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 	  <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
@@ -52,8 +52,6 @@
 	<ItemGroup>
 		<None Include="..\README.md" Pack="True" PackagePath="\" />
 		<None Include="DapperAutoData.props" Pack="True" PackagePath="build\" />
-		<None Include="AutoMoqDataAttribute.cs" Pack="True" PackagePath="contentFiles\cs\netstandard2.0\" />
-		<None Include="DataGeneratorInstaller.cs" Pack="True" PackagePath="contentFiles\cs\netstandard2.0\" />
 	</ItemGroup>
 
 </Project>
