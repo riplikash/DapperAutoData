@@ -38,8 +38,9 @@ public class DapperAutoDataAttribute : InlineAutoDataAttribute
         }
     }
 
+}
 
-    [AttributeUsage(AttributeTargets.Method)]
+[AttributeUsage(AttributeTargets.Method)]
 public class AutoDomainDataAttribute : AutoDataAttribute
 {
     public AutoDomainDataAttribute()
