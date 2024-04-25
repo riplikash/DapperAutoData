@@ -25,7 +25,7 @@ jobs:
       - name: Extract version
         id: get_version
         run: |
-          version=$(grep '<version>' ./DapperAutoData/DapperAutoData.nuspec | sed 's|<version>\(.*\)</version>|\1|g')
+          version=$(grep '<version>' ./DapperAutoData/DapperAutoData.nuspec | sed 's|<version>\(.*\)</version>|\1|g' | tr -d '[:space:]')
           echo "VERSION=$version"
           echo "::set-output name=version::$version"
         shell: bash
