@@ -12,6 +12,8 @@
     <RepositoryUrl>https://github.com/riplikash/DapperAutoData</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>xunit;autofixture;c#;.net;unittesting</PackageTags>
+	<PackageId>DapperAutoData</PackageId>
+	<Version>1.0.6</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,9 +44,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="DapperAutoData.nuspec">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
 	  <None Update="LICENSE.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		  

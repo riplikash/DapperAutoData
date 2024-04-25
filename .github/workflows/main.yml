@@ -16,22 +16,19 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
 
-      - name: Create Packages Directory
-        run: mkdir -p ./packages
-      
-      - name: Pack
-        run: dotnet pack DapperAutoData/DapperAutoData.csproj --configuration Release --output ./packages
-
       - name: Extract version
         id: get_version
         run: |
-          version=$(grep '<version>' ./DapperAutoData/DapperAutoData.nuspec | sed 's|<version>\(.*\)</version>|\1|g' | tr -d '[:space:]')
+          version=$(grep '<Version>' ./DapperAutoData/DapperAutoData.csproj | sed 's|<Version>\(.*\)</Version>|\1|g' | tr -d '[:space:]')
           echo "VERSION=$version"
           echo "::set-output name=version::$version"
         shell: bash
       
+      - name: Pack
+        run: dotnet pack DapperAutoData/DapperAutoData.csproj --configuration Release
+      
       - name: List directories
-        run: ls -Rla ./packages
+        run: ls -Rla ./DapperAutoData/bin/Release
       
       - name: Publish to NuGet
         uses: nuget/setup-nuget@v1
@@ -39,4 +36,4 @@ jobs:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       
       - name: Upload Package
-        run: dotnet nuget push ./packages/DapperAutoData.${{ steps.get_version.outputs.version }}.nupkg --source "https://api.nuget.org/v3/index.json" --skip-duplicate --api-key "${{ secrets.NUGET_API_KEY }}"
+        run: dotnet nuget push ./DapperAutoData/bin/Release/DapperAutoData.${{ steps.get_version.outputs.version }}.nupkg --source "https://api.nuget.org/v3/index.json" --skip-duplicate --api-key "${{ secrets.NUGET_API_KEY }}"
