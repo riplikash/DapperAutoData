@@ -36,6 +36,10 @@ jobs:
           echo "::set-output name=new_version::$newVersion"
         shell: pwsh
       
+      # Create the packages directory
+      - name: Create Packages Directory
+        run: mkdir -p ./packages
+      
       # Pack the project
       - name: Pack
         run: dotnet pack DapperAutoData/DapperAutoData.csproj --configuration Release /p:NuspecFile=DapperAutoData/DapperAutoData.nuspec --output ./packages

@@ -5,6 +5,11 @@ VisualStudioVersion = 17.5.33312.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperAutoData", "DapperAutoData\DapperAutoData.csproj", "{EF3A59B7-7497-4A20-80BB-924F399959F4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{5D76D3AA-E157-4DEE-A510-8F2A06140C74}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main.yml = .github\workflows\main.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
