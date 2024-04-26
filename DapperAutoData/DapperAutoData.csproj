@@ -5,6 +5,7 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
+	<IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Dapper Auto Data</Title>
     <Authors>Blake Stephens, Kaelin Stephens</Authors>
