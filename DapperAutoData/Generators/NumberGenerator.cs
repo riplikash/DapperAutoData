@@ -26,7 +26,9 @@ public class NumberGenerator<T> : IDataGenerator
     public void RegisterGenerators(IFixture fixture) => fixture.Register(() => Generate(fixture, _generator));
 }
 
-public class NumberPositive : NumberGenerator<NumberPositive> { public NumberPositive() : base(faker => faker.Random.Decimal(1, decimal.MaxValue)) { } }
-public class NumberNegative : NumberGenerator<NumberNegative> { public NumberNegative() : base(faker => faker.Random.Decimal(decimal.MinValue, -1)) { } }
-public class NumberMoney : NumberGenerator<NumberMoney> { public NumberMoney() : base(GenerateFakeMoney) { } private static decimal GenerateFakeMoney(Faker faker) => faker.Random.Decimal(1, 1000) + faker.Random.Decimal(0.01m, 0.99m); }
-public class NumberFraction : NumberGenerator<NumberFraction> { public NumberFraction() : base(faker => Math.Round(faker.Random.Decimal(0.01m, 0.99m), 2)) { } }
+public class NumberPositive() : NumberGenerator<NumberPositive>(faker => faker.Random.Decimal(1, decimal.MaxValue));
+public class NumberNegative() : NumberGenerator<NumberNegative>(faker => faker.Random.Decimal(decimal.MinValue, -1));
+public class NumberMoney() : NumberGenerator<NumberMoney>(GenerateFakeMoney) 
+{ private static decimal GenerateFakeMoney(Faker faker) => faker.Random.Decimal(1, 1000) + faker.Random.Decimal(0.01m, 0.99m); }
+public class NumberFraction()
+    : NumberGenerator<NumberFraction>(faker => Math.Round(faker.Random.Decimal(0.01m, 0.99m), 2));

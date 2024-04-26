@@ -15,9 +15,7 @@ public static class DataGeneratorInstaller
         var list = System.Reflection.Assembly.GetCallingAssembly()
             .GetTypes()
             .Where(type => typeof(IDataGenerator).IsAssignableFrom(type)
-                           && !type.IsInterface
-                           && !type.IsAbstract
-                           && !type.ContainsGenericParameters
+                           && type is { IsInterface: false, IsAbstract: false, ContainsGenericParameters: false }
                            && !IsSubclassOfRawGeneric(typeof(DateTimeGenerator<>), type)
                            && !IsSubclassOfRawGeneric(typeof(DateTimeOffsetGenerator<>), type))
             .ToList();
