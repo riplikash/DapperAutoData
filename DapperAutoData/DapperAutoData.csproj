@@ -1,52 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFrameworks>net8.0</TargetFrameworks>
-	  <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
-	<IsPackable>true</IsPackable>
+    <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Dapper Auto Data</Title>
     <Authors>Blake Stephens, Kaelin Stephens</Authors>
-    <Description>An anonymous auto data fromework for testing, combining Autofixture, AutoData, FluentAssertions, Moq, and Faker.net.</Description>
+    <Description>An anonymous auto data framework for testing, combining Autofixture, AutoData, FluentAssertions, Moq, and Faker.net.</Description>
     <RepositoryUrl>https://github.com/riplikash/DapperAutoData</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>xunit;autofixture;c#;.net;unittesting</PackageTags>
-	<PackageId>DapperAutoData</PackageId>
-	<Version>1.0.9</Version>
+    <PackageId>DapperAutoData</PackageId>
+    <Version>1.0.10</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <PackageReference Include="Bogus" Version="35.5.0" />
+    <PackageReference Include="xunit" Version="2.7.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.8">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="AutoFixture" Version="4.18.1" />
+    <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.1" />
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.18.1" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
   </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Bogus" Version="35.5.0" />
-		<PackageReference Include="xunit" Version="2.7.1" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.8">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="AutoFixture" Version="4.18.1" />
-		<PackageReference Include="AutoFixture.AutoMoq" Version="4.18.1" />
-		<PackageReference Include="AutoFixture.Xunit2" Version="4.18.1" />
-		<PackageReference Include="FluentAssertions" Version="6.12.0" />
-		<PackageReference Include="Moq" Version="4.20.70" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Update="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\README.md" Pack="True" PackagePath="\" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <None Update="LICENSE.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  
-	  </None>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="..\README.md" Pack="True" PackagePath="\" />
-	</ItemGroup>
+  <!-- Include source files in the NuGet package -->
+  <ItemGroup>
+    <Content Include="**\*.cs" Pack="True" PackagePath="src\" />
+  </ItemGroup>
 
 </Project>
