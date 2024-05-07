@@ -12,7 +12,7 @@ public static class DataGeneratorInstaller
 {
     public static void Run(IFixture fixture)
     {
-        var list = System.Reflection.Assembly.GetCallingAssembly()
+        var list = System.Reflection.Assembly.GetEntryAssembly()
             .GetTypes()
             .Where(type => typeof(IDataGenerator).IsAssignableFrom(type)
                            && type is { IsInterface: false, IsAbstract: false, ContainsGenericParameters: false }

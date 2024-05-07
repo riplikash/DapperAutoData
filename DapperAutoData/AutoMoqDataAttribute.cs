@@ -8,10 +8,16 @@ namespace DapperAutoData;
 /// <summary>
 /// Attribute used to mark a test method for AutoFixture data generation.
 /// </summary>
-public class DapperAutoDataAttribute(params object[] values)
-    : InlineAutoDataAttribute(new AutoFixtureMoqDataAttribute(), values)
+public class DapperAutoDataAttribute : InlineAutoDataAttribute
 {
-    public class AutoFixtureMoqDataAttribute() : AutoDataAttribute(() =>
+    public DapperAutoDataAttribute(params object[] values)
+        : base(new AutoFixtureMoqDataAttribute(), values)
+    {
+    }
+    public class AutoFixtureMoqDataAttribute() : AutoDataAttribute
+    (FixtureFactory);
+
+    private static IFixture FixtureFactory()
     {
         var fixture = new Fixture().Customize(new DefaultCustomizations());
 
@@ -26,10 +32,5 @@ public class DapperAutoDataAttribute(params object[] values)
         }
 
         return fixture;
-    });
-
+    }
 }
-
-[AttributeUsage(AttributeTargets.Method)]
-public class AutoDomainDataAttribute()
-    : AutoDataAttribute(() => new Fixture().Customize(new AutoMoqCustomization { ConfigureMembers = true }));

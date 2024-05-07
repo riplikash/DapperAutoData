@@ -14,7 +14,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>xunit;autofixture;c#;.net;unittesting</PackageTags>
     <PackageId>DapperAutoData</PackageId>
-    <Version>1.0.10</Version>
+    <Version>1.0.13</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,6 +41,12 @@
   <!-- Include source files in the NuGet package -->
   <ItemGroup>
     <Content Include="**\*.cs" Pack="True" PackagePath="src\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="obj\**" />
+    <Content Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
 
 </Project>
