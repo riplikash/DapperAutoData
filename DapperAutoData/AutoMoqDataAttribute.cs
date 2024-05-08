@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using AutoFixture;
-using AutoFixture.AutoMoq;
+﻿using AutoFixture;
 using AutoFixture.Xunit2;
 
 namespace DapperAutoData;
@@ -11,25 +9,23 @@ namespace DapperAutoData;
 public class DapperAutoDataAttribute(params object[] values)
     : InlineAutoDataAttribute(new AutoFixtureMoqDataAttribute(), values)
 {
-    public class AutoFixtureMoqDataAttribute() : AutoDataAttribute(() =>
+    public class AutoFixtureMoqDataAttribute() : AutoDataAttribute
+    (FixtureFactory);
+
+    private static IFixture FixtureFactory()
     {
         var fixture = new Fixture().Customize(new DefaultCustomizations());
 
-        var customizationsTypes = Assembly.GetExecutingAssembly()
-            .GetTypes()
+        var customizationsTypes = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(x => x.GetTypes())
             .Where(t => typeof(IDapperProjectCustomization).IsAssignableFrom(t) && !t.IsInterface);
 
         foreach (var customizationsType in customizationsTypes)
         {
-            var customizations = (IDapperProjectCustomization)Activator.CreateInstance(customizationsType);
+            var customizations = Activator.CreateInstance(customizationsType) as IDapperProjectCustomization;
             fixture.Customize(customizations);
         }
 
         return fixture;
-    });
-
+    }
 }
-
-[AttributeUsage(AttributeTargets.Method)]
-public class AutoDomainDataAttribute()
-    : AutoDataAttribute(() => new Fixture().Customize(new AutoMoqCustomization { ConfigureMembers = true }));

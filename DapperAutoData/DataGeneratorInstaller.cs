@@ -12,9 +12,9 @@ public static class DataGeneratorInstaller
 {
     public static void Run(IFixture fixture)
     {
-        var list = System.Reflection.Assembly.GetCallingAssembly()
-            .GetTypes()
-            .Where(type => typeof(IDataGenerator).IsAssignableFrom(type)
+        var list = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(x => x.GetTypes())
+                    .Where(type => typeof(IDataGenerator).IsAssignableFrom(type)
                            && type is { IsInterface: false, IsAbstract: false, ContainsGenericParameters: false }
                            && !IsSubclassOfRawGeneric(typeof(DateTimeGenerator<>), type)
                            && !IsSubclassOfRawGeneric(typeof(DateTimeOffsetGenerator<>), type))
