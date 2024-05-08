@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using AutoFixture;
-using AutoFixture.AutoMoq;
+﻿using AutoFixture;
 using AutoFixture.Xunit2;
 
 namespace DapperAutoData;
@@ -8,12 +6,9 @@ namespace DapperAutoData;
 /// <summary>
 /// Attribute used to mark a test method for AutoFixture data generation.
 /// </summary>
-public class DapperAutoDataAttribute : InlineAutoDataAttribute
+public class DapperAutoDataAttribute(params object[] values)
+    : InlineAutoDataAttribute(new AutoFixtureMoqDataAttribute(), values)
 {
-    public DapperAutoDataAttribute(params object[] values)
-        : base(new AutoFixtureMoqDataAttribute(), values)
-    {
-    }
     public class AutoFixtureMoqDataAttribute() : AutoDataAttribute
     (FixtureFactory);
 
@@ -21,13 +16,13 @@ public class DapperAutoDataAttribute : InlineAutoDataAttribute
     {
         var fixture = new Fixture().Customize(new DefaultCustomizations());
 
-        var customizationsTypes = Assembly.GetExecutingAssembly()
-            .GetTypes()
+        var customizationsTypes = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(x => x.GetTypes())
             .Where(t => typeof(IDapperProjectCustomization).IsAssignableFrom(t) && !t.IsInterface);
 
         foreach (var customizationsType in customizationsTypes)
         {
-            var customizations = (IDapperProjectCustomization)Activator.CreateInstance(customizationsType);
+            var customizations = Activator.CreateInstance(customizationsType) as IDapperProjectCustomization;
             fixture.Customize(customizations);
         }
 

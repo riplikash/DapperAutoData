@@ -27,3 +27,11 @@ public class TestClassGenerator : IDataGenerator
     }
 }
 
+public class TestCustomization : IDapperProjectCustomization
+{
+    public void Customize(IFixture fixture)
+    {
+        fixture.Customize<TestClass>(c => c.With(x => x.Name, "John"));
+    }
+}
+
