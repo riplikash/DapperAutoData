@@ -1,4 +1,4 @@
-﻿namespace DapperAutoData.IntegrationUtilities;
+﻿namespace DapperAutoData.SystemIntegrationUtilities;
 
 public class TokenProvider
 {

@@ -3,7 +3,7 @@ using System.Net.Mime;
 using System.Text.Json;
 using System.Text;
 
-namespace DapperAutoData.IntegrationUtilities;
+namespace DapperAutoData.SystemIntegrationUtilities;
 
 public class DapperServiceClientBase
 {
