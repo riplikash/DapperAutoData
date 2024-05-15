@@ -206,7 +206,7 @@ public class DapperServiceClientBase
 
         _client.DefaultRequestHeaders.Clear();
 
-        if (_client.DefaultRequestHeaders.Authorization != null && _tokenProvider.AccessToken != null)
+        if (_client.DefaultRequestHeaders.Authorization == null && _tokenProvider.AccessToken != null)
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenProvider.AccessToken);
 
         if (headers != null && headers.Any())
