@@ -1,4 +1,5 @@
 using AutoFixture;
+using FluentAssertions;
 
 namespace DapperAutoData.Examples;
 
@@ -10,6 +11,8 @@ public class UnitTest1
     public void Test1(TestClass a)
     {
         var b = a;
+
+        a.Name.Should().Be("John");
     }
 }
 
