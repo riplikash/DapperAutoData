@@ -180,12 +180,6 @@ public class ExampleServiceClientTests
 
 ```
 
-
-#### Example of a Test with Injected Services in an Async Class
-
-
-
-
 ## Community
 
 Feel free to submit issues and enhancement requests. Contributions are welcome!
