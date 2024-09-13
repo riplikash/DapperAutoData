@@ -21,6 +21,13 @@ public class StringGenerator<T> : IDataGenerator
     public void RegisterGenerators(IFixture fixture) => fixture.Register(() => new StringGenerator<T>(_generator));
 }
 
+public class StringHashMD5() : StringGenerator<StringHashMD5>(faker => faker.Random.Hash(32));
+public class StringHashSHA1() : StringGenerator<StringHashSHA1>(faker => faker.Random.Hash(40));
+public class StringHashSHA224() : StringGenerator<StringHashSHA224>(faker => faker.Random.Hash(56));
+public class StringHashSHA256() : StringGenerator<StringHashSHA256>(faker => faker.Random.Hash(64));
+public class StringHashSHA384() : StringGenerator<StringHashSHA384>(faker => faker.Random.Hash(96));
+public class StringHashSHA512() : StringGenerator<StringHashSHA512>(faker => faker.Random.Hash(128));
+public class StringRandom() : StringGenerator<StringRandom>(faker => faker.Random.AlphaNumeric(faker.Random.Number(5,128)));
 public class StringParagraph() : StringGenerator<StringParagraph>(faker => faker.Lorem.Paragraph());
 public class StringPersonFullName() : StringGenerator<StringPersonFullName>(faker => faker.Name.FullName());
 public class StringPhoneNumber() : StringGenerator<StringPhoneNumber>(faker => faker.Phone.PhoneNumber());
